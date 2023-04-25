@@ -31,7 +31,7 @@ public class UserService {
 	// findById
 	public ResponseEntity<User> findById(String id) {
 		String msg = "Resource Not Found";
-		
+
 		if (!userRepository.existsById(id)) {
 			throw new NullPointerException(msg);
 		}
@@ -47,4 +47,13 @@ public class UserService {
 		return ResponseEntity.ok().body(userDTO);
 
 	}//
+
+	// insert user
+	public User insert(User user) {
+		return userRepository.insert(user);
+	}//
+
+	public User fromDTO(UserDTO userDTO) {
+		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+	}
 }

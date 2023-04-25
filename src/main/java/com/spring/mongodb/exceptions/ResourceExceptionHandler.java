@@ -14,22 +14,21 @@ import lombok.Getter;
 
 @RestControllerAdvice
 public class ResourceExceptionHandler {
-	
+
 	// recurso nao encontrado
-		@ExceptionHandler(NullPointerException.class)
-		public ResponseEntity<Object> handleResourceNotFoundException(NullPointerException ex, HttpServletRequest request) {
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<Object> handleResourceNotFoundException(NullPointerException ex, HttpServletRequest request) {
 
-			Instant moment = Instant.now();
-			String message = ex.getMessage();
-			String path = request.getRequestURI();
-			
-			APIError apiError = new APIError(moment, HttpStatus.NOT_FOUND.value(), message,path );
+		Instant moment = Instant.now();
+		String message = ex.getMessage();
+		String path = request.getRequestURI();
 
-			return ResponseEntity.status(apiError.getStatus()).body(apiError);
+		APIError apiError = new APIError(moment, HttpStatus.NOT_FOUND.value(), message, path);
 
-		}// recurso nao encontrado
-	
-	
+		return ResponseEntity.status(apiError.getStatus()).body(apiError);
+
+	}// recurso nao encontrado
+
 	@Getter
 	// classe para recurso nao encontrado e regra do bd
 	private static class APIError {
