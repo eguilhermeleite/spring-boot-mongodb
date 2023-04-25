@@ -1,6 +1,9 @@
 package com.spring.mongodb.dto;
 
 import java.io.Serializable;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 
 import com.spring.mongodb.domain.User;
 
@@ -23,5 +26,13 @@ public class UserDTO implements Serializable {
 		name = obj.getName();
 		email = obj.getEmail();
 	}
+
+	public UserDTO(ResponseEntity<User> user) {
+		id = user.getBody().getId();
+		name = user.getBody().getName();
+		email = user.getBody().getEmail();
+	}
+
+	
 
 }
