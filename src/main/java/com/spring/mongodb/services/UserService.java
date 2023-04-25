@@ -56,4 +56,11 @@ public class UserService {
 	public User fromDTO(UserDTO userDTO) {
 		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
 	}
+	
+	// deletar
+	public ResponseEntity<Void> delete(String id){
+		findById(id);
+		userRepository.deleteById(id);
+		return ResponseEntity.noContent().build() ;
+	}
 }
