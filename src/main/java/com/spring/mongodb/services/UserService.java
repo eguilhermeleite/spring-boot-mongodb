@@ -50,7 +50,7 @@ public class UserService {
 
 	// insert user
 	public User insert(User user) {
-		return userRepository.insert(user);
+		return userRepository.save(user);
 	}//
 
 	public User fromDTO(UserDTO userDTO) {
@@ -62,5 +62,17 @@ public class UserService {
 		findById(id);
 		userRepository.deleteById(id);
 		return ResponseEntity.noContent().build() ;
+	}
+	
+	// update
+	public ResponseEntity<User> update(User user, String id) {
+		String msg = "Resource Not Found";
+		
+		if(!userRepository.existsById(id)) {
+			throw new NullPointerException(msg);
+		}
+		user.setId(id);
+		user = insert(user);
+		return ResponseEntity.ok(user);
 	}
 }
